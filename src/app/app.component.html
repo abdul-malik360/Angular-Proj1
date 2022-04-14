@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+
+<!-- class binding -->
+<h1 [class.text-red]="bool">class binding</h1>
+
+<!-- style binding -->
+<h1 [style.color]="bool ? 'green' : 'blue'">Style Binding</h1>
+
+<!-- event binding -->
+<button (click)="buttonClick()">event binding</button>
+<hr />
+<!-- string interpolation -->
+<p>{{ message }}</p>
+
+<hr />
+<!-- property binding -->
+<!-- <img src="{{imgUrl}}" alt=""> -->
+<p><img [src]="imgUrl" alt="property binding" /> property binding</p>
+<hr />
+
+<!-- two way data binding -->
+<!-- <input type="text" (keyup)=" onKeyup(username.value)" #username>     ***first example but he didn't show it*** -->
+<input type="text" [(ngModel)]="userName" (keyup.enter)="onKeyup()" />
+<p>{{ userName }}</p>
+
+<!-- post component -->
+<app-post></app-post>
+
+<!-- Directives -->
+
+<!-- ngFor -->
+<!-- following are options but not ideal -->
+<!-- <p>{{postArray}}</p> -->
+
+<!-- <ul>
+    <li>{{postArray[0]}}</li>
+    <li>{{postArray[1]}}</li>
+    <li>{{postArray[2]}}</li>
+    <li>{{postArray[3]}}</li>
+    <li>{{postArray[4]}}</li>
+</ul> -->
+<!-- this method is much better -->
+<p>fetched using ngFor directive</p>
+<ul>
+  <li *ngFor="let post of postArray">{{ post }}</li>
+</ul>
+<hr />
+
+<p>Fetching object array</p>
+
+<p>whole object array</p>
+<ul>
+  <li *ngFor="let post of objArray">{{ post | json }}</li>
+</ul>
+
+<p>value only</p>
+<ul>
+  <li *ngFor="let post of objArray; let i = index">
+    {{ post.postTitle }}
+
+    <!-- splice method to delete values in array -->
+    <button (click)="onDelete(i)">Delete</button>
+  </li>
+</ul>
+
+<!-- fetching an empty array -->
+<div *ngIf="newObjArray.length > 0">
+  <ul>
+    <li *ngFor="let post of newObjArray; let i = index">
+      {{ post.postTitle }}
+
+      <button (click)="onDeleteNew(i)">Delete</button>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="newObjArray.length == 0">
+  <p>There is no data to fetch...</p>
+</div>
